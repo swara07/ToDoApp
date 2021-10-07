@@ -1,10 +1,12 @@
 package com.example.todoapp.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -18,6 +20,7 @@ import com.example.todoapp.R;
 import com.example.todoapp.Utils.DataBaseHelper;
 
 import java.util.List;
+import java.util.Random;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
 
@@ -29,12 +32,25 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         this.activity = activity;
         this.myDB = myDB;
     }
-
+    public static final Random RANDOM = new Random();
+    public View root;
+    public Button button;
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout , parent , false);
+        root=v.findViewById(R.id.root);
+
+
+        int red=RANDOM.nextInt(255);
+        int green=RANDOM.nextInt(255);
+        int blue=RANDOM.nextInt(255);
+
+        int color= Color.rgb(red,green,blue);
+        root.setBackgroundColor(color);
+
+
        return new MyViewHolder(v);
     }
 

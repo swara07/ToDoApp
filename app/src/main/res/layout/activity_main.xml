@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/back"
         tools:context=".MainActivity">
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +15,9 @@
         android:textColor="#000"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +28,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+
         android:layout_alignParentBottom="true"
         android:id="@+id/fab"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+
         android:layout_alignParentRight="true" />
 
 </RelativeLayout>

@@ -19,6 +19,8 @@ import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.Random;
+
 public class AddNewTask extends BottomSheetDialogFragment {
 
     public static final String TAG = "AddNewTask";
@@ -38,7 +40,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_newtask , container , false);
+
         return v;
+
     }
 
     @Override
