@@ -1,7 +1,9 @@
 package com.example.todoapp.Adapter;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +22,11 @@ import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.R;
 import com.example.todoapp.Utils.DataBaseHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
@@ -27,6 +34,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     private List<ToDoModel> mList;
     private MainActivity activity;
     private DataBaseHelper myDB;
+    TextView d;
+
 
     public ToDoAdapter(DataBaseHelper myDB , MainActivity activity){
         this.activity = activity;
@@ -41,6 +50,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout , parent , false);
         root=v.findViewById(R.id.root);
+        d=v.findViewById(R.id.date);
+
+
 
 
         int red=RANDOM.nextInt(255);
@@ -58,17 +70,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final ToDoModel item = mList.get(position);
         holder.mCheckBox.setText(item.getTask());
+        d.setText("Posted on: "+item.getDin());
         holder.mCheckBox.setChecked(toBoolean(item.getStatus()));
+
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
+//                    holder.mCheckBox.setPaintFlags(holder.mCheckBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else
                     myDB.updateStatus(item.getId() , 0);
+//                holder.mCheckBox.setPaintFlags(holder.mCheckBox.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
         });
     }
+
+
 
     public boolean toBoolean(int num){
         return num!=0;

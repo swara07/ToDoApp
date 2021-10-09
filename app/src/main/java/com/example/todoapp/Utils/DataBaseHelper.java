@@ -22,6 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static  final String COL_1 = "ID";
     private static  final String COL_2 = "TASK";
     private static  final String COL_3 = "STATUS";
+    private static  final String COL_4 = "DATE";
 
 
     public DataBaseHelper(@Nullable Context context ) {
@@ -30,7 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , TASK TEXT , STATUS INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , TASK TEXT , STATUS INTEGER,DATE VARCHAR)");
     }
 
     @Override
@@ -44,13 +45,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL_2 , model.getTask());
         values.put(COL_3 , 0);
+        values.put(COL_4 , model.getDin());
         db.insert(TABLE_NAME , null , values);
     }
 
-    public void updateTask(int id , String task){
+    public void updateTask(int id , String task,String date){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_2 , task);
+        values.put(COL_4,date);
         db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
     }
 
@@ -82,6 +85,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         task.setId(cursor.getInt(cursor.getColumnIndex(COL_1)));
                         task.setTask(cursor.getString(cursor.getColumnIndex(COL_2)));
                         task.setStatus(cursor.getInt(cursor.getColumnIndex(COL_3)));
+                        task.setDin(cursor.getString(cursor.getColumnIndex(COL_4)));
                         modelList.add(task);
 
                     }while (cursor.moveToNext());
@@ -93,6 +97,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return modelList;
     }
+
+
+
 
 }
 

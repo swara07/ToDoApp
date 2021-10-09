@@ -19,6 +19,10 @@ import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class AddNewTask extends BottomSheetDialogFragment {
@@ -94,13 +98,17 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                String text = mEditText.getText().toString();
-
+                Date c = Calendar.getInstance().getTime();
+                System.out.println("Current time => " + c);
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                final String formattedDate = df.format(c);
                if (finalIsUpdate){
-                   myDb.updateTask(bundle.getInt("id") , text);
+                   myDb.updateTask(bundle.getInt("id") , text,formattedDate);
                }else{
                    ToDoModel item = new ToDoModel();
                    item.setTask(text);
                    item.setStatus(0);
+                   item.setDin(formattedDate);
                    myDb.insertTask(item);
                }
                dismiss();

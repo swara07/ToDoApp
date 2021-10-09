@@ -4,6 +4,7 @@ public class ToDoModel {
 
     private String task;
     private int id , status;
+    private String din;
 
     public String getTask() {
         return task;
@@ -28,4 +29,8 @@ public class ToDoModel {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public void setDin(String din){this.din=din;}
+
+    public String getDin(){return din;}
 }
